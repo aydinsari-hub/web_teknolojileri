@@ -8,7 +8,7 @@ Bu proje, Web Teknolojileri ve Programlama dersi vize projesi (Sprint 6) kapsam�
 
 ## Canlı Yayın
 - **Vercel:** [https://aydinsari-frontend.vercel.app](https://aydinsari-frontend.vercel.app)
-- **GitHub:** [https://github.com/aydinsari-hub/Hafta5](https://github.com/aydinsari-hub/Hafta5)
+- **GitHub:** [https://github.com/aydinsari-hub/web_teknolojileri](https://github.com/aydinsari-hub/web_teknolojileri)
 
 ## Kurulum ve Çalıştırma
 
