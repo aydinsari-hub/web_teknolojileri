@@ -1,14 +1,14 @@
 :root {
   --no: 2416501056;
-  --ton: mod(var(--no), 360);
-  --renk-ana: hsl(var(--ton) 65% 38%);
-  --renk-ana-koyu: hsl(var(--ton) 65% 28%);
-  --renk-yardimci: hsl(calc(var(--ton) + 180) 60% 45%);
-  --renk-zemin: hsl(var(--ton) 30% 97%);
+  --ton: 135;
+  --renk-ana: #167a32;
+  --renk-ana-koyu: #0e5622;
+  --renk-yardimci: #1b873b;
+  --renk-zemin: #f8fafc;
   --renk-kart: #fff;
-  --renk-kenar: hsl(var(--ton) 20% 85%);
-  --renk-metin: hsl(var(--ton) 25% 15%);
-  --renk-soluk: hsl(var(--ton) 12% 38%);
+  --renk-kenar: #dadce0;
+  --renk-metin: #202124;
+  --renk-soluk: #5f6368;
   --renk-baslik-yazi: #fff;
   --renk-hata: #c53030;
   --renk-hata-zemin: #fff5f5;
@@ -153,7 +153,7 @@ footer {
 }
 
 .kart-kategori {
-  background: var(--renk-zemin);
+  background: #e6f4ea;
   color: var(--renk-ana-koyu);
   border-radius: var(--kose);
   padding: 0 var(--bosluk-s);
@@ -370,7 +370,7 @@ footer {
 }
 
 .mesaj-basari {
-  background: var(--renk-zemin);
+  background: #e6f4ea;
   border: 2px solid var(--renk-ana);
   color: var(--renk-ana-koyu);
 }
