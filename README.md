@@ -1,6 +1,5 @@
 https://aydinsari-frontend.vercel.app
 
-> Alternatif Canlı Vercel Adresi: https://hafta2-gamma.vercel.app
 
 # Kampüs Etkinlikleri — Vize Projesi (Sprint 6: Router, Context ve Yönetim)
 
