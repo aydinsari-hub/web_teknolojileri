@@ -1,56 +1,30 @@
+import { Link } from "react-router-dom";
 import type { CampusEvent } from "../../types/campus-event";
 import { formatDate } from "../../utils/format-date";
 
 interface EventDetailProps {
   event: CampusEvent;
-  onBack: () => void;
-  onEdit: (id: string) => void;
 }
 
-function EventDetail({ event, onBack, onEdit }: EventDetailProps) {
+export default function EventDetail({ event }: EventDetailProps) {
   return (
-    <article className="detay detay-layout">
-      <div className="detay-sol">
-        {event.image ? (
-          <figure className="afis">
-            <img src={event.image} alt={`${event.title} afişi`} />
-            <figcaption className="afis-alti">{event.title} afişi</figcaption>
+    <article className="detay">
+      <div className="detay-ust">
+        {event.image && (
+          <figure>
+            <img src={event.image} alt={`${event.title} afişi`} width="480" height="270" />
+            <figcaption>{event.title} afişi</figcaption>
           </figure>
-        ) : (
-          <>
-            <div className="afis-kutu">
-              <h2>{event.title}</h2>
-              <p>
-                {formatDate(event.date)} · {event.location}
-              </p>
-            </div>
-            <small className="afis-alti">{event.title} afişi</small>
-          </>
         )}
-
-        <section className="aciklama-bolumu">
-          <h3>Açıklama</h3>
-          <p>{event.description}</p>
-        </section>
-
-        <div className="detay-butonlar">
-          <button type="button" className="btn" onClick={() => onBack()}>
-            ← Listeye dön
-          </button>
-          <button type="button" className="btn" onClick={() => onEdit(event.id)}>
-            Bu etkinliği güncelle
-          </button>
-        </div>
-      </div>
-
-      <aside className="detay-sag">
-        <div className="kunye-kutusu">
-          <h3>Etkinlik Künyesi</h3>
-          <dl className="kunye">
+        <section className="kunye">
+          <h2>Etkinlik Bilgileri</h2>
+          <dl>
             <dt>Tarih</dt>
             <dd>
-              <time dateTime={event.date}>{formatDate(event.date)}</time>, {event.time}
+              <time dateTime={`${event.date}T${event.time}`}>{formatDate(event.date)}</time>
             </dd>
+            <dt>Saat</dt>
+            <dd>{event.time}</dd>
             <dt>Yer</dt>
             <dd>{event.location}</dd>
             <dt>Kategori</dt>
@@ -58,10 +32,18 @@ function EventDetail({ event, onBack, onEdit }: EventDetailProps) {
             <dt>Kontenjan</dt>
             <dd>{event.capacity} kişi</dd>
           </dl>
-        </div>
-      </aside>
+        </section>
+      </div>
+      <h2>Açıklama</h2>
+      <p>{event.description}</p>
+      <p className="form-butonlar">
+        <Link className="buton" to="/events">
+          ← Listeye dön
+        </Link>
+        <Link className="buton" to={`/admin/${event.id}/edit`}>
+          Bu etkinliği güncelle
+        </Link>
+      </p>
     </article>
   );
 }
-
-export default EventDetail;

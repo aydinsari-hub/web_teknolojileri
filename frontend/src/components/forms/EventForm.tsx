@@ -1,71 +1,141 @@
+import { useState, type ChangeEvent, type FormEvent } from "react";
+import type { Category, EventFormData, EventFormErrors } from "../../types/campus-event";
+import { validateEvent } from "../../utils/validate-event";
+
+const categories: Category[] = ["Seminer", "Atölye", "Söyleşi", "Yarışma"];
+
 interface EventFormProps {
-  onSubmit: () => void;
+  initialData: EventFormData;
+  submitText: string;
+  onSubmit: (data: EventFormData) => void;
 }
 
-function EventForm({ onSubmit }: EventFormProps) {
+export default function EventForm({ initialData, submitText, onSubmit }: EventFormProps) {
+  const [data, setData] = useState<EventFormData>(initialData);
+  const [errors, setErrors] = useState<EventFormErrors>({});
+
+  function handleChange(
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const found = validateEvent(data);
+    setErrors(found);
+    if (Object.keys(found).length === 0) {
+      onSubmit(data);
+    }
+  }
+
   return (
-    <>
-      <p className="form-aciklama">
-        Bu sprintte form sadece görünüm; kayıt yapılmaz.
+    <form className="form" noValidate onSubmit={handleSubmit}>
+      <p className="alan">
+        <label htmlFor="title">Etkinlik Adı</label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          value={data.title}
+          onChange={handleChange}
+          aria-invalid={errors.title ? true : undefined}
+        />
+        <span className="hata-metni">{errors.title}</span>
       </p>
-      <form
-        className="form form-kapsayici"
-        onSubmit={(e) => {
-          e.preventDefault();
-          onSubmit();
-        }}
-      >
-        <div className="form-grup">
-          <label htmlFor="title">Etkinlik Adı</label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            maxLength={80}
-            placeholder="Örn. Kariyer Günleri 2026"
-          />
-        </div>
-        <div className="form-grup">
-          <label htmlFor="category">Kategori</label>
-          <select id="category" name="category" defaultValue="">
-            <option value="">Seçiniz</option>
-            <option value="Seminer">Seminer</option>
-            <option value="Atölye">Atölye</option>
-            <option value="Söyleşi">Söyleşi</option>
-            <option value="Yarışma">Yarışma</option>
-          </select>
-        </div>
-        <div className="form-grup">
-          <label htmlFor="date">Tarih</label>
-          <input type="date" id="date" name="date" />
-        </div>
-        <div className="form-grup">
-          <label htmlFor="time">Saat</label>
-          <input type="time" id="time" name="time" />
-        </div>
-        <div className="form-grup">
-          <label htmlFor="location">Yer</label>
-          <input
-            type="text"
-            id="location"
-            name="location"
-            placeholder="Örn. A Blok Konferans Salonu"
-          />
-        </div>
-        <div className="form-grup">
-          <label htmlFor="capacity">Kontenjan</label>
-          <input type="number" id="capacity" name="capacity" min={1} max={1000} />
-        </div>
-        <div className="form-grup">
-          <label htmlFor="description">Açıklama</label>
-          <textarea id="description" name="description" rows={5} />
-        </div>
-        <button type="submit" className="btn">
-          Kaydet
+
+      <p className="alan">
+        <label htmlFor="category">Kategori</label>
+        <select
+          id="category"
+          name="category"
+          value={data.category}
+          onChange={handleChange}
+          aria-invalid={errors.category ? true : undefined}
+        >
+          <option value="">Seçiniz</option>
+          {categories.map((cat) => (
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
+        <span className="hata-metni">{errors.category}</span>
+      </p>
+
+      <p className="alan">
+        <label htmlFor="date">Tarih</label>
+        <input
+          type="date"
+          id="date"
+          name="date"
+          value={data.date}
+          onChange={handleChange}
+          aria-invalid={errors.date ? true : undefined}
+        />
+        <span className="hata-metni">{errors.date}</span>
+      </p>
+
+      <p className="alan">
+        <label htmlFor="time">Saat</label>
+        <input
+          type="time"
+          id="time"
+          name="time"
+          value={data.time}
+          onChange={handleChange}
+          aria-invalid={errors.time ? true : undefined}
+        />
+        <span className="hata-metni">{errors.time}</span>
+      </p>
+
+      <p className="alan">
+        <label htmlFor="location">Yer</label>
+        <input
+          type="text"
+          id="location"
+          name="location"
+          value={data.location}
+          onChange={handleChange}
+          aria-invalid={errors.location ? true : undefined}
+        />
+        <span className="hata-metni">{errors.location}</span>
+      </p>
+
+      <p className="alan">
+        <label htmlFor="capacity">Kontenjan</label>
+        <input
+          type="number"
+          id="capacity"
+          name="capacity"
+          value={data.capacity}
+          onChange={handleChange}
+          aria-invalid={errors.capacity ? true : undefined}
+        />
+        <span className="hata-metni">{errors.capacity}</span>
+      </p>
+
+      <p className="alan">
+        <label htmlFor="description">Açıklama</label>
+        <textarea
+          id="description"
+          name="description"
+          rows={5}
+          value={data.description}
+          onChange={handleChange}
+          aria-invalid={errors.description ? true : undefined}
+        />
+        <span className="hata-metni">{errors.description}</span>
+      </p>
+
+      <p className="form-butonlar">
+        <button type="submit" className="buton">
+          {submitText}
         </button>
-      </form>
-    </>
+      </p>
+    </form>
   );
 }
-
-export default EventForm;
