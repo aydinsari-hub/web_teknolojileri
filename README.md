@@ -1,4 +1,4 @@
-https://aydinsari-frontend.vercel.app
+https://aydinsari-frontend-sqrszwi4x-ders6.vercel.app
 
 # Kampüs Etkinlikleri (Frontend & Backend)
 
