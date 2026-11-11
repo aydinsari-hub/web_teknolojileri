@@ -58,3 +58,4 @@ Tüm hata yanıtları standart nesne yapısında döner:
 ## Postman Koleksiyonu
 
 API'yi test etmek için hazırlanan 6 adet standart test isteği `requests/kampus-api.json` dosyasında yer almaktadır. Bu dosyayı Postman'e import ederek hemen test edebilirsiniz.
+

@@ -1,113 +1,119 @@
 https://aydinsari-frontend.vercel.app
 
+# Kampüs Etkinlikleri (Frontend & Backend)
 
-# Kampüs Etkinlikleri — Vize Projesi (Sprint 6: Router, Context ve Yönetim)
+Bu depo, Web Teknolojileri ve Programlama dersi kapsamında geliştirilen **Kampüs Etkinlikleri** projesinin tüm ön yüz (Frontend) ve arka yüz (Backend) kodlarını içermektedir.
 
-Bu proje, Web Teknolojileri ve Programlama dersi vize projesi (Sprint 6) kapsamında geliştirilmiştir. Tek sayfalık React uygulaması; gerçek URL adreslerine (`react-router-dom`), merkezi durum yönetimine (`EventsContext`), kontrollü formlara (`controlled forms`) ve tam CRUD yönetimine (ekle, güncelle, sil, onay) kavuşturulmuştur.
-
-## Canlı Yayın
-- **Vercel:** [https://aydinsari-frontend.vercel.app](https://aydinsari-frontend.vercel.app)
+- **Frontend:** React + TypeScript + Vite + React Router + Context API (`localhost:5173`)
+- **Backend:** Node.js + Express REST API (`localhost:3000`)
+- **Canlı Yayın:** [https://aydinsari-frontend.vercel.app](https://aydinsari-frontend.vercel.app) (Alternatif: [https://hafta2-gamma.vercel.app](https://hafta2-gamma.vercel.app))
 - **GitHub:** [https://github.com/aydinsari-hub/web_teknolojileri](https://github.com/aydinsari-hub/web_teknolojileri)
 
-## Kurulum ve Çalıştırma
+---
 
-Projeyi yerel ortamda çalıştırmak için:
-
-```bash
-# Bağımlılıkları yükleyin
-npm install
-# veya frontend klasöründe:
-# cd frontend && npm install
-
-# Geliştirme sunucusunu başlatın
-npm run dev
-
-# Tarayıcıda açın:
-# http://localhost:5173
-
-# Üretim derlemesi ve kontrolü
-npm run build
-npm run lint
-```
-
-## Route Haritası (10 Adres, 10 Sayfa)
-
-| Adres | Sayfa Bileşeni | Açıklama |
-|---|---|---|
-| `/` | `HomePage` | Yaklaşan 2 etkinliği ve tüm etkinliklere gidiş butonunu listeler. |
-| `/events` | `EventsPage` | Etkinlik arama (başlık ve açıklamada) ve kategori filtreleme ile tüm etkinlikleri sunar. |
-| `/events/:id` | `EventDetailPage` | Parametre olarak gelen id'ye göre etkinliği bulur; görsel, künye bilgileri ve açıklamayı gösterir. |
-| `/admin` | `AdminPage` | Etkinlik yönetim tablosu. Yeni etkinlik butonu, düzenleme bağlantısı ve onaylı silme işlemi içerir. |
-| `/admin/new` | `AddEventPage` | Yeni etkinlik ekleme formu (`EventForm`). Başarılı ekleme sonrası `/admin` sayfasına yönlendirir. |
-| `/admin/:id/edit` | `EditEventPage` | Mevcut etkinlik bilgilerini dolduran güncelleme formu. Kayıttan sonra `/admin` sayfasına yönlendirir. |
-| `/login` | `LoginPage` | Kontrollü e-posta ve şifre doğrulamalı giriş sayfası. |
-| `/register` | `RegisterPage` | Ad soyad, e-posta, şifre ve şifre tekrarı alanlı kayıt sayfası. |
-| `/forgot-password` | `ForgotPasswordPage` | E-posta doğrulamalı şifre sıfırlama bağlantı formu. |
-| `*` | `NotFoundPage` | Tanımsız bir adrese gidildiğinde gösterilen 404 sayfası ve ana sayfaya dönüş butonu. |
-
-## Klasör ve Dosya Yapısı
+## 📂 Proje Dizin Yapısı
 
 ```text
-frontend/
-├── src/
-│   ├── components/
-│   │   ├── layout/
-│   │   │   ├── Header.tsx           # Dinamik sayfa başlığı, alt bilgi ve document.title
-│   │   │   ├── Navigation.tsx       # NavLink tabanlı aktif menü şeridi
-│   │   │   └── Footer.tsx           # Öğrenci künyesi alt bilgisi
-│   │   ├── events/
-│   │   │   ├── EventCard.tsx        # Tek etkinlik kartı ve detay bağlantısı
-│   │   │   ├── EventList.tsx        # Etkinlik ızgarası listesi
-│   │   │   ├── EventFilter.tsx      # Arama ve kategori seçim filtre formu
-│   │   │   └── EventDetail.tsx      # Detay görünümü, künye ve işlem butonları
-│   │   └── forms/
-│   │       └── EventForm.tsx        # Ekleme ve düzenleme için ortak kontrollü form
-│   ├── context/
-│   │   └── EventsContext.tsx        # Context API ile events, addEvent, updateEvent, deleteEvent
-│   ├── pages/
-│   │   ├── HomePage.tsx
-│   │   ├── EventsPage.tsx
-│   │   ├── EventDetailPage.tsx
-│   │   ├── AdminPage.tsx
-│   │   ├── AddEventPage.tsx
-│   │   ├── EditEventPage.tsx
-│   │   ├── LoginPage.tsx
-│   │   ├── RegisterPage.tsx
-│   │   ├── ForgotPasswordPage.tsx
-│   │   └── NotFoundPage.tsx
-│   ├── data/
-│   │   └── events.ts                # Başlangıç etkinlik verileri
-│   ├── types/
-│   │   └── campus-event.ts          # CampusEvent, Category, EventFormData, EventFormErrors
-│   ├── utils/
-│   │   ├── filter-events.ts         # searchEvents, filterByCategory, findEventById
-│   │   ├── format-date.ts           # Türkçe uzun tarih formatlayıcı
-│   │   └── validate-event.ts        # Saf form doğrulama kuralları
-│   ├── App.tsx                      # Router kabuğu ve Route tanımları
-│   ├── App.css                      # Duyarlı CSS, masaüstü/mobil tablo ve form stilleri
-│   ├── index.css
-│   └── main.tsx                     # BrowserRouter ve EventsProvider sarmalayıcısı
+kampus-etkinlik/
+├── frontend/                        # React Kullanıcı Arayüzü (Sprint 6 / Vize)
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── layout/              # Header, Navigation, Footer
+│   │   │   ├── events/              # EventCard, EventList, EventFilter, EventDetail
+│   │   │   └── forms/               # EventForm (ortak form)
+│   │   ├── context/
+│   │   │   └── EventsContext.tsx    # Context API durum yönetimi
+│   │   ├── pages/                   # 10 Sayfa Bileşeni
+│   │   ├── data/events.ts
+│   │   ├── types/campus-event.ts
+│   │   ├── utils/                   # filter-events, format-date, validate-event
+│   │   ├── App.tsx & App.css
+│   │   └── main.tsx
+│   └── package.json
+│
+├── backend/                         # Express REST API Sunucusu (Sprint 7)
+│   ├── src/
+│   │   ├── app.js                   # Express uygulaması, middleware ve 404 yakalayıcı
+│   │   ├── server.js                # .env yükleyici ve port dinleyici
+│   │   ├── routes/
+│   │   │   └── event-routes.js      # URL rota yönlendiricileri
+│   │   ├── controllers/
+│   │   │   └── event-controller.js  # İstek ve yanıt denetleyicileri
+│   │   └── data/
+│   │       └── events.js            # Bellek içi 6 özgün etkinlik kaydı
+│   ├── requests/
+│   │   └── kampus-api.json          # Postman test koleksiyonu (v2.1)
+│   ├── .env.example                 # Örnek ortam değişkenleri
+│   ├── .gitignore                   # node_modules ve .env engellemesi
+│   ├── package.json
+│   └── README.md                    # Backend API sözleşmesi ve kılavuzu
+│
+├── vercel.json                      # Vercel SPA derleme ve yönlendirme ayarı
+├── package.json                     # Kök kısayol komutları
+└── README.md                        # Ana proje kılavuzu
 ```
 
-## Vize Teslim Checklist Kontrolü
+---
 
-- [x] **1. Tüm linkler çalışıyor:** Menü (`NavLink`), kart detay linkleri (`Link`), form içi yönlendirmeler eksiksiz çalışmaktadır.
-- [x] **2. Tüm sayfalar hazır:** 10 sayfa bileşeni oluşturuldu ve içerikleri eksiksiz yazıldı.
-- [x] **3. Klasör ve dosya yapısı oluşturuldu:** Slaytta belirtilen hiyerarşik yapıya birebir uygundur (`types/page.ts` kaldırılmıştır).
-- [x] **4. Tüm route'lar (10 adet) tanımlandı:** `App.tsx` içerisinde 10 route ve `*` (NotFoundPage) mevcuttur.
-- [x] **5. Context kullanıldı ve bağlandı:** `EventsContext` üzerinden tüm sayfalara merkezi state ulaştırılmaktadır.
-- [x] **6. Ekle, sil, güncelle ve silmeden önce onay çalışıyor:** Yönetim panelinden yapılan değişiklikler anında Ana Sayfa ve Etkinlikler sayfasına yansımaktadır.
-- [x] **7. Son çalışır proje GitHub'a gönderildi:** `main` dalına commit ve push edilmiştir.
-- [x] **8. Proje Vercel'de yayında:** Vercel SPA rewrite desteği ve derleme yapılandırması tamamlanmıştır.
-- [x] **9. README yazıldı, Vercel linki eklendi.**
-- [x] **10. Mobil görünüm doğru çalışıyor:** 360–390px telefon ekranlarında tablo kartlara dönüşür (`data-baslik`), menü ve filtreler taşma yapmaz.
-- [x] **11. CSS bozulması yok:** Renk paleti, tipografi, buton ve form stilleri tutarlıdır.
-- [x] **12. Arama ve filtreleme çalışıyor:** Etkinlik arama metni ve kategori filtresi eşzamanlı çalışır.
-- [x] **13. Form doğrulama çalışıyor:** Etkinlik formu (7 kural), giriş (e-posta `@` ve şifre min 6), kayıt (şifre eşleşme ve min karakter), şifremi unuttum alanlarında dinamik doğrulama ve hata mesajları mevcuttur.
+## 🚀 Kurulum ve Çalıştırma
 
-## Geliştirici Bilgileri
+### 1. Frontend (Ön Yüz)
+```bash
+# Frontend geliştirme sunucusunu başlatın (http://localhost:5173)
+npm run dev
 
-- **Ad Soyad:** Aydın Sarı
-- **Öğrenci Numarası:** 2416501056
+# veya frontend klasöründen:
+cd frontend
+npm install
+npm run dev
+```
+
+### 2. Backend (Arka Yüz / REST API)
+```bash
+# Backend sunucusunu başlatın (http://localhost:3000)
+npm run backend:dev
+
+# veya backend klasöründen:
+cd backend
+npm install
+npm run dev
+```
+
+---
+
+## 📡 Backend REST API Sözleşmesi (Sprint 7)
+
+| Yöntem | Uç Nokta | Açıklama | Başarılı | Hata |
+|---|---|---|---|---|
+| `GET` | `/health` | Sağlık kontrolü ve öğrenci no (`2416501056`) | `200 OK` | — |
+| `GET` | `/events` | 6 etkinliğin listesi (`?category=` destekler) | `200 OK` | — |
+| `GET` | `/events/:id` | Tek etkinlik detayı | `200 OK` | `404 Not Found` |
+| `POST` | `/events` | Yeni etkinlik kaydı (`title`, `category`, `date`) | `201 Created` | `400 Bad Request` |
+
+Test istekleri Postman ile doğrudan `backend/requests/kampus-api.json` dosyası içe aktarılarak çalıştırılabilir.
+
+---
+
+## 📋 Sprint 7 Teslim Kontrol Listesi
+
+- [x] **1. Backend ayrı `backend/` klasöründe**
+- [x] **2. `npm install` + `npm run dev` hatasız çalışıyor**
+- [x] **3. Port `.env`'den okunuyor (`PORT=3000`), `.env.example` var**
+- [x] **4. `.env` ve `node_modules` GitHub'da yok (`.gitignore`)**
+- [x] **5. Route ve controller ayrı dosyalarda**
+- [x] **6. En az 5 commit adım adım atılmış** (6 commit atıldı)
+- [x] **7. `GET /health` JSON'unda `student = "2416501056"`**
+- [x] **8. `data/events.js`'te kendi 6 etkinliğin**
+- [x] **9. `GET /events` ve `GET /events/:id` çalışıyor, olmayan ID `404`**
+- [x] **10. `POST /events` `201`, eksik veri `400`**
+- [x] **11. `backend/README.md`'de REST sözleşmesi tablosu mevcut**
+- [x] **12. 6 test isteği koleksiyon olarak `backend/requests/kampus-api.json`'da**
+
+---
+
+## 👨‍💻 Geliştirici Bilgileri
+
+- **Öğrenci:** Aydın Sarı
+- **Öğrenci No:** 2416501056
 - **Ders:** Web Teknolojileri ve Programlama
 - **Dönem:** 2025–2026 Güz

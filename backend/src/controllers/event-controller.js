@@ -43,3 +43,4 @@ export function createEvent(req, res) {
   events.push(newEvent);
   res.status(201).json(newEvent);
 }
+

@@ -60,3 +60,4 @@ export const events = [
     description: "Docker, Kubernetes ve bulut altyapılarında mikroservis ölçekleme deneyimleri ve vaka analizleri.",
   },
 ];
+
