@@ -6,7 +6,7 @@ Bu depo, Web Teknolojileri ve Programlama dersi kapsamında geliştirilen **Kamp
 
 - **Frontend:** React + TypeScript + Vite + React Router + Context API (`localhost:5173`)
 - **Backend:** Node.js + Express REST API (`localhost:3000`)
-- **Canlı Yayın:** [https://aydinsari-frontend.vercel.app](https://aydinsari-frontend.vercel.app) (Alternatif: [https://hafta2-gamma.vercel.app](https://hafta2-gamma.vercel.app))
+- **Canlı Yayın:** [https://aydinsari-frontend.vercel.app](https://aydinsari-frontend-sqrszwi4x-ders6.vercel.app)
 - **GitHub:** [https://github.com/aydinsari-hub/web_teknolojileri](https://github.com/aydinsari-hub/web_teknolojileri)
 
 ---
