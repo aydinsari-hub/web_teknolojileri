@@ -5,7 +5,7 @@ https://aydinsari-frontend-sqrszwi4x-ders6.vercel.app
 Bu depo, Web Teknolojileri ve Programlama dersi kapsamında geliştirilen **Kampüs Etkinlikleri** projesinin tüm ön yüz (Frontend) ve arka yüz (Backend) kodlarını içermektedir.
 
 - **Frontend:** React + TypeScript + Vite + React Router + Context API (`localhost:5173`)
-- **Backend:** Node.js + Express REST API (`localhost:3000`)
+- **Backend:** Node.js + Express + MongoDB (Mongoose) REST API (`localhost:3000`)
 - **Canlı Yayın:** [https://aydinsari-frontend.vercel.app](https://aydinsari-frontend-sqrszwi4x-ders6.vercel.app)
 - **GitHub:** [https://github.com/aydinsari-hub/web_teknolojileri](https://github.com/aydinsari-hub/web_teknolojileri)
 
@@ -31,18 +31,26 @@ kampus-etkinlik/
 │   │   └── main.tsx
 │   └── package.json
 │
-├── backend/                         # Express REST API Sunucusu (Sprint 7)
+├── backend/                         # Express + MongoDB REST API (Sprint 7–9)
 │   ├── src/
-│   │   ├── app.js                   # Express uygulaması, middleware ve 404 yakalayıcı
-│   │   ├── server.js                # .env yükleyici ve port dinleyici
+│   │   ├── config/
+│   │   │   └── database.js          # MongoDB (Mongoose) bağlantı modülü
+│   │   ├── models/
+│   │   │   └── event-model.js       # Event şema ve model tanımları
+│   │   ├── utils/
+│   │   │   └── date.js              # GG-AA-YYYY tarih ayrıştırma ve biçimlendirme
+│   │   ├── data/
+│   │   │   └── seed-events.js       # 6 özgün örnek etkinlik (geçmiş + gelecek tarihli)
+│   │   ├── controllers/
+│   │   │   └── event-controller.js  # CRUD, arama, filtre ve upcoming denetleyicileri
 │   │   ├── routes/
 │   │   │   └── event-routes.js      # URL rota yönlendiricileri
-│   │   ├── controllers/
-│   │   │   └── event-controller.js  # İstek ve yanıt denetleyicileri
-│   │   └── data/
-│   │       └── events.js            # Bellek içi 6 özgün etkinlik kaydı
+│   │   ├── seed.js                  # Veritabanı tohumlama (seed) scripti
+│   │   ├── app.js                   # Express uygulaması, 404 ve hata middleware'i
+│   │   └── server.js                # Veritabanı bağlantısı ve port dinleyici
 │   ├── requests/
-│   │   └── kampus-api.json          # Postman test koleksiyonu (v2.1)
+│   │   ├── kampus-api.json          # Postman test koleksiyonu (18 istek, 45 test)
+│   │   └── run-results.json         # Runner / Newman test sonuçları
 │   ├── .env.example                 # Örnek ortam değişkenleri
 │   ├── .gitignore                   # node_modules ve .env engellemesi
 │   ├── package.json
@@ -59,55 +67,35 @@ kampus-etkinlik/
 
 ### 1. Frontend (Ön Yüz)
 ```bash
-# Frontend geliştirme sunucusunu başlatın (http://localhost:5173)
-npm run dev
-
-# veya frontend klasöründen:
-cd frontend
-npm install
 npm run dev
 ```
 
-### 2. Backend (Arka Yüz / REST API)
-```bash
-# Backend sunucusunu başlatın (http://localhost:3000)
-npm run backend:dev
+### 2. Backend (Arka Yüz / MongoDB REST API)
+`backend/.env` dosyasına `PORT=3000` ve `MONGODB_URI=...` bilgilerinizi ekledikten sonra:
 
-# veya backend klasöründen:
-cd backend
-npm install
-npm run dev
+```bash
+# Veritabanını 6 özgün etkinlikle doldurun
+npm run backend:seed
+
+# Backend geliştirme sunucusunu başlatın (http://localhost:3000)
+npm run backend:dev
 ```
 
 ---
 
-## 📡 Backend REST API Sözleşmesi (Sprint 7)
+## 📡 Backend REST API Sözleşmesi (Sprint 9)
+
+Tarih formatı tüm uç noktalarda `"GG-AA-YYYY"` şeklindedir.
 
 | Yöntem | Uç Nokta | Açıklama | Başarılı | Hata |
 |---|---|---|---|---|
 | `GET` | `/health` | Sağlık kontrolü ve öğrenci no (`2416501056`) | `200 OK` | — |
-| `GET` | `/events` | 6 etkinliğin listesi (`?category=` destekler) | `200 OK` | — |
+| `GET` | `/events` | Etkinlik listesi (`?search=` ve `?category=` destekler) | `200 OK` | — |
+| `GET` | `/events/upcoming` | Bugün ve sonraki etkinlikler (tarihe göre sıralı) | `200 OK` | — |
 | `GET` | `/events/:id` | Tek etkinlik detayı | `200 OK` | `404 Not Found` |
 | `POST` | `/events` | Yeni etkinlik kaydı (`title`, `category`, `date`) | `201 Created` | `400 Bad Request` |
-
-Test istekleri Postman ile doğrudan `backend/requests/kampus-api.json` dosyası içe aktarılarak çalıştırılabilir.
-
----
-
-## 📋 Sprint 7 Teslim Kontrol Listesi
-
-- [x] **1. Backend ayrı `backend/` klasöründe**
-- [x] **2. `npm install` + `npm run dev` hatasız çalışıyor**
-- [x] **3. Port `.env`'den okunuyor (`PORT=3000`), `.env.example` var**
-- [x] **4. `.env` ve `node_modules` GitHub'da yok (`.gitignore`)**
-- [x] **5. Route ve controller ayrı dosyalarda**
-- [x] **6. En az 5 commit adım adım atılmış** (6 commit atıldı)
-- [x] **7. `GET /health` JSON'unda `student = "2416501056"`**
-- [x] **8. `data/events.js`'te kendi 6 etkinliğin**
-- [x] **9. `GET /events` ve `GET /events/:id` çalışıyor, olmayan ID `404`**
-- [x] **10. `POST /events` `201`, eksik veri `400`**
-- [x] **11. `backend/README.md`'de REST sözleşmesi tablosu mevcut**
-- [x] **12. 6 test isteği koleksiyon olarak `backend/requests/kampus-api.json`'da**
+| `PATCH` | `/events/:id` | Gönderilen alanları kısmi günceller | `200 OK` | `400`, `404` |
+| `DELETE` | `/events/:id` | Etkinliği siler | `204 No Content` | `404 Not Found` |
 
 ---
 

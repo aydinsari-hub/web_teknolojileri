@@ -1,14 +1,17 @@
-# Kampüs Etkinlikleri — Backend API (Sprint 7)
+# Kampüs Etkinlikleri — Backend API (Sprint 9)
 
-Bu servis, Kampüs Etkinlikleri uygulamasının Node.js ve Express ile geliştirilmiş REST API backend sunucusudur.
+Bu servis, Kampüs Etkinlikleri uygulamasının Node.js, Express ve MongoDB (Mongoose) ile geliştirilmiş REST API backend sunucusudur.
 
 ## Kurulum ve Çalıştırma
 
-Gerekli paketleri yüklemek ve sunucuyu başlatmak için `backend` klasöründe:
+Gerekli paketleri yüklemek, veritabanını örnek verilerle doldurmak ve sunucuyu başlatmak için `backend` klasöründe:
 
 ```bash
 # Bağımlılıkları yükleyin
 npm install
+
+# Veritabanını 6 özgün etkinlik ile doldurun
+npm run seed
 
 # Geliştirme modunda başlatın (dosya değişikliklerinde otomatik yeniden başlar)
 npm run dev
@@ -23,25 +26,30 @@ Sunucu varsayılan olarak `http://localhost:3000` adresinde çalışır.
 
 Proje ayarları `.env` dosyası üzerinden yapılandırılır. `.env` dosyası gizli olduğu için depoya eklenmez; örnek şablon `.env.example` dosyasında yer almaktadır.
 
-| Değişken | Açıklama | Varsayılan |
+| Değişken | Açıklama | Örnek / Varsayılan |
 |---|---|---|
 | `PORT` | API sunucusunun dinleyeceği port | `3000` |
+| `MONGODB_URI` | MongoDB bağlantı adresi | `mongodb://127.0.0.1:27017/kampus` |
 
 Örnek `.env` içeriği:
 ```env
 PORT=3000
+MONGODB_URI=mongodb://127.0.0.1:27017/kampus
 ```
 
 ## REST API Sözleşmesi
 
+Tüm tarih alanları API istek ve yanıtlarında `"GG-AA-YYYY"` biçimindedir (ör. `"15-10-2026"`).
+
 | Yöntem (Method) | Uç Nokta (Endpoint) | Amaç | Başarılı Durum Kodu | Hata Durum Kodu | Durum |
 |---|---|---|---|---|---|
-| `GET` | `/health` | Sunucu sağlık kontrolü ve öğrenci künyesi | `200 OK` | — | Bu sprint (Sprint 7) |
-| `GET` | `/events` | Tüm etkinliklerin listesini getirir (`?category=` filtresi destekler) | `200 OK` | — | Bu sprint (Sprint 7) |
-| `GET` | `/events/:id` | Belirtilen ID'ye sahip tek etkinliği getirir | `200 OK` | `404 Not Found` | Bu sprint (Sprint 7) |
-| `POST` | `/events` | Yeni etkinlik kaydı oluşturur (`title`, `category`, `date` zorunludur) | `201 Created` | `400 Bad Request` | Bu sprint (Sprint 7) |
-| `PATCH` | `/events/:id` | Etkinlik bilgilerini günceller | `200 OK` | `400`, `404` | Sprint 9 |
-| `DELETE` | `/events/:id` | Etkinliği siler | `204 No Content` | `404` | Sprint 9 |
+| `GET` | `/health` | Sunucu sağlık kontrolü ve öğrenci künyesi | `200 OK` | — | Çalışıyor |
+| `GET` | `/events` | Tüm etkinliklerin listesi (`?search=` & `?category=` destekler) | `200 OK` | — | Çalışıyor |
+| `GET` | `/events/upcoming` | Bugün ve sonraki etkinlikler (tarihe göre sıralı) | `200 OK` | — | Çalışıyor |
+| `GET` | `/events/:id` | Belirtilen ID'ye sahip tek etkinliği getirir | `200 OK` | `404 Not Found` | Çalışıyor |
+| `POST` | `/events` | Yeni etkinlik kaydı oluşturur (`title`, `category`, `date` zorunludur) | `201 Created` | `400 Bad Request` | Çalışıyor |
+| `PATCH` | `/events/:id` | Etkinlikte sadece gönderilen alanları günceller | `200 OK` (güncel kayıt) | `400`, `404` | Çalışıyor |
+| `DELETE` | `/events/:id` | Etkinliği siler | `204 No Content` (gövde yok) | `404` | Çalışıyor |
 
 ### Standart Hata Yanıt Formatı
 
@@ -55,7 +63,11 @@ Tüm hata yanıtları standart nesne yapısında döner:
 }
 ```
 
-## Postman Koleksiyonu
+## Postman & Newman Testleri
 
-API'yi test etmek için hazırlanan 6 adet standart test isteği `requests/kampus-api.json` dosyasında yer almaktadır. Bu dosyayı Postman'e import ederek hemen test edebilirsiniz.
+API test koleksiyonu `requests/kampus-api.json` dosyasında, Collection Runner / Newman test çıktısı ise `requests/run-results.json` dosyasında yer almaktadır.
 
+```bash
+# Sunucu açıkken tüm testleri tek komutla çalıştırmak için:
+newman run https://webdersi.vercel.app/test.json
+```
