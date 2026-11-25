@@ -3,7 +3,7 @@ export const seedEvents = [
     title: "Yapay Zeka ve Yazılım Geliştirme Zirvesi 2026",
     category: "Seminer",
     capacity: 150,
-    date: "2026-11-20",
+    date: "15-10-2026",
     time: "14:00",
     location: "Mühendislik Fakültesi Konferans Salonu",
     description:
@@ -13,7 +13,7 @@ export const seedEvents = [
     title: "React ve TypeScript ile Web Geliştirme Atölyesi",
     category: "Atölye",
     capacity: 25,
-    date: "2026-11-25",
+    date: "05-11-2026",
     time: "10:30",
     location: "Bilgisayar Mühendisliği Laboratuvarı 3",
     description:
@@ -23,17 +23,17 @@ export const seedEvents = [
     title: "Siber Güvenlik ve Ağ Savunması Söyleşisi",
     category: "Söyleşi",
     capacity: 75,
-    date: "2026-12-02",
+    date: "02-12-2026",
     time: "13:30",
     location: "Merkezi Amfi 2",
     description:
       "Sektörden siber güvenlik analistleri ile tehdit avcılığı ve kariyer fırsatları üzerine interaktif söyleşi.",
   },
   {
-    title: "Mobil Uygulama ve Flutter Geliştirme Çalıştayı",
+    title: "Mobil Uygulama ve Flutter Geliştirme Atölyesi",
     category: "Atölye",
     capacity: 30,
-    date: "2026-12-08",
+    date: "08-12-2026",
     time: "15:00",
     location: "İnovasyon ve Yazılım Merkezi",
     description:
@@ -43,7 +43,7 @@ export const seedEvents = [
     title: "Kampüs Hackathonu ve Kodlama Yarışması",
     category: "Yarışma",
     capacity: 40,
-    date: "2026-12-15",
+    date: "15-12-2026",
     time: "09:00",
     location: "Merkez Kütüphane Etkinlik Salonu",
     description:
@@ -53,7 +53,7 @@ export const seedEvents = [
     title: "Bulut Bilişim ve Mikroservis Mimarileri Semineri",
     category: "Seminer",
     capacity: 90,
-    date: "2026-12-22",
+    date: "22-12-2026",
     time: "14:30",
     location: "A Blok Mavi Salon",
     description:
